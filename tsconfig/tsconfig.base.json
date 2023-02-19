@@ -22,7 +22,7 @@
     "noUnusedParameters": true,
     "noImplicitAny": false,
     "baseUrl": ".",
-    "module": "esnext"
+    "module": "CommonJS"
   },
   "exclude": [
     "node_modules",

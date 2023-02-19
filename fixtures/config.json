@@ -1,0 +1,11 @@
+{
+  "services": [
+    {
+      "name": "ABC"
+    },
+    {
+      "name": "DEF",
+      "customStatuses": ["yes", "no"]
+    }
+  ]
+}
