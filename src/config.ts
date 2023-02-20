@@ -3,7 +3,6 @@ import path from 'node:path';
 import fsS, {promises as fs} from 'node:fs';
 import {z} from 'zod';
 
-// TODO: const Status = z.enum(['ALIVE', 'DEAD', 'UNSTABLE', 'UNKNOWN']);
 const Service = z.object({
   name: z.string(),
   customStatuses: z.optional(z.array(z.string())),
@@ -12,7 +11,7 @@ const ConfigSchema = z.object({
   services: z.array(Service),
 });
 
-type Configuration = z.infer<typeof ConfigSchema>;
+export type Configuration = z.infer<typeof ConfigSchema>;
 
 let config: Configuration;
 

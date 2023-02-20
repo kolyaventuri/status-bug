@@ -52,7 +52,8 @@
       "error"
     ],
     "@typescript-eslint/prefer-readonly-parameter-types": 0,
-    "unicorn/prefer-top-level-await": 0
+    "unicorn/prefer-top-level-await": 0,
+    "n/file-extension-in-import": 0
   },
   "overrides": [
     {
