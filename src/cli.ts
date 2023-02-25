@@ -13,10 +13,6 @@ const argv = yargs(hideBin(process.argv))
 
 const configFile = argv.config ?? argv._[0]?.toString();
 
-if (!configFile) {
-  throw new Error('Configuration file was not provided.');
-}
-
 (async () => {
   const config = await loadConfig(configFile);
 
