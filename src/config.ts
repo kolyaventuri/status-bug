@@ -9,6 +9,7 @@ const Service = z.object({
   customStatuses: z.optional(z.array(z.string())),
 });
 const ConfigSchema = z.object({
+  port: z.number().optional(),
   services: z.array(Service),
 });
 

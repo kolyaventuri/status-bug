@@ -12,7 +12,7 @@ type Context = {
 const test = t<Context>;
 
 beforeEach<Context>(async (context) => {
-  context.server = createServer();
+  context.server = createServer(9537);
   context.socket = new SocketClient(context.server, config);
 });
 

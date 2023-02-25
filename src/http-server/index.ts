@@ -2,9 +2,7 @@ import http from 'node:http';
 import Koa from 'koa';
 import logger from '../logger';
 
-const PORT = 9537;
-
-export const createServer = () => {
+export const createServer = (port: number) => {
   const app = new Koa();
 
   app.use(async (ctx) => {
@@ -12,8 +10,8 @@ export const createServer = () => {
   });
 
   const server = http.createServer(app.callback());
-  server.listen(PORT);
-  logger.info(`Sever listening on ${PORT}`);
+  server.listen(port);
+  logger.info(`Sever listening on ${port}`);
 
   return server;
 };
