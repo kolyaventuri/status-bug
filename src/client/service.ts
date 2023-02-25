@@ -1,4 +1,5 @@
 import {EventEmitter} from 'node:events';
+import type TypedEmitter from 'typed-emitter';
 import {z} from 'zod';
 import logger from '../logger';
 
@@ -7,16 +8,20 @@ const defaultStatus = z.enum(defaultStatusNames);
 
 class StatusParseError extends Error {}
 
+type Events = {
+  statusChange: (status: string) => void;
+};
+
 class Service {
   __name: string;
   __status = 'UNKNOWN';
   __customStatuses?: string[];
-  __emitter: EventEmitter;
+  __emitter: TypedEmitter<Events>;
 
   constructor(name: string, customStatuses?: string[]) {
     this.__name = name;
     this.__customStatuses = customStatuses;
-    this.__emitter = new EventEmitter();
+    this.__emitter = new EventEmitter() as TypedEmitter<Events>;
   }
 
   get status(): typeof this.__status {
@@ -25,9 +30,9 @@ class Service {
 
   set status(value: string) {
     try {
-      defaultStatus.parse(value);
-      if (!this.__customStatuses?.includes(value)) {
-        throw new Error('Not found in custom status array.');
+      const result = defaultStatus.safeParse(value);
+      if (!result.success && !this.__customStatuses?.includes(value)) {
+        throw new Error('Now a valid service status');
       }
     } catch (error: unknown) {
       logger.error(error);

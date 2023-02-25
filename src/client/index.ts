@@ -1,17 +1,22 @@
 import {EventEmitter} from 'node:events';
+import type TypedEventEmitter from 'typed-emitter';
 import {type Configuration} from '../config';
 import logger from '../logger';
 import Service from './service';
 
+type Events = {
+  serviceStatusChanged: (props: {name: string; status: string}) => void;
+};
+
 class Client {
   __config: Configuration;
   __services: Record<string, Service>;
-  __emitter: EventEmitter;
+  __emitter: TypedEventEmitter<Events>;
 
   constructor(config: Configuration) {
     this.__config = config;
     this.__services = {};
-    this.__emitter = new EventEmitter();
+    this.__emitter = new EventEmitter() as TypedEventEmitter<Events>;
 
     logger.info('Initializing client...');
 
@@ -32,7 +37,7 @@ class Client {
     const _service = new Service(service.name, service.customStatuses);
 
     _service.on('statusChange', (newStatus: string) => {
-      this.__emitter.emit('serviceStatusChange', {
+      this.__emitter.emit('serviceStatusChanged', {
         name: service.name,
         status: newStatus,
       });

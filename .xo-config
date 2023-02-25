@@ -18,16 +18,7 @@
   },
   "rules": {
     "react/no-unknown-property": ["error", { "ignore": ["jsx", "global"] }],
-    "import/extensions": [
-      "error",
-      "ignorePackages",
-      {
-        "js": "never",
-        "jsx": "never",
-        "ts": "never",
-        "tsx": "never"
-      }
-    ],
+    "import/extensions": 0,
     "@typescript-eslint/camelcase": 0,
     "@typescript-eslint/naming-convention": [
       "error",

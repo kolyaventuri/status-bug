@@ -8,8 +8,8 @@ export const createClient = (config: Configuration) => {
   const server = createServer();
   const socketClient = new SocketClient(server, config);
 
-  statusClient.on('serviceStatusChanged', (service: string, status: string) => {
-    socketClient.sendStatus(service, status);
+  statusClient.on('serviceStatusChanged', ({name, status}) => {
+    socketClient.sendStatus(name, status);
   });
 
   return statusClient;

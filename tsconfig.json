@@ -9,6 +9,12 @@
     "test"
   ],
   "compilerOptions": {
-    "incremental": true
+    "incremental": true,
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["src/*"],
+      "@fixtures/*": ["fixtures/*"],
+      "@helpers/*": ["test/helpers/*"]
+    }
   }
 }
