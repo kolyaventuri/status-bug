@@ -1,6 +1,6 @@
 import process from 'node:process';
 import path from 'node:path';
-import fsS, {promises as fs} from 'node:fs';
+import fs from 'node:fs';
 import {z} from 'zod';
 import logger from './logger';
 
@@ -20,19 +20,17 @@ let config: Configuration = {
   services: [],
 };
 
-export const loadConfig = async (
-  configFile: string,
-): Promise<Configuration> => {
+export const loadConfig = (configFile: string): Configuration => {
   if (configLoaded) return config;
   const file = path.resolve(process.cwd(), configFile ?? '');
-  const exists = fsS.existsSync(file);
+  const exists = fs.existsSync(file);
   if (!exists || !configFile) {
     logger.warn('No config file. Using default config...');
     configLoaded = true;
     return config;
   }
 
-  const data = await fs.readFile(file, 'utf8');
+  const data = fs.readFileSync(file, 'utf8');
   let json: Record<string, unknown>;
   try {
     json = JSON.parse(data) as typeof json;

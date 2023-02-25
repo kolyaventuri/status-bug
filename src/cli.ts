@@ -13,8 +13,8 @@ const argv = yargs(hideBin(process.argv))
 
 const configFile = argv.config ?? argv._[0]?.toString();
 
-(async () => {
-  const config = await loadConfig(configFile);
+(() => {
+  const config = loadConfig(configFile);
 
   console.log(LOGO);
 
